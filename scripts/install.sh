@@ -42,6 +42,20 @@ else
     echo "Ollama is already installed."
 fi
 
+# Configure Ollama to listen on all interfaces if running under systemd on Linux
+# This is necessary because the Dockerized backend needs to communicate with Ollama via the host gateway.
+if command -v systemctl &> /dev/null; then
+    echo "Configuring Ollama service network binding (setting OLLAMA_HOST=0.0.0.0)..."
+    sudo mkdir -p /etc/systemd/system/ollama.service.d
+    cat <<EOF | sudo tee /etc/systemd/system/ollama.service.d/override.conf > /dev/null
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0"
+EOF
+    echo "Reloading systemd and restarting Ollama..."
+    sudo systemctl daemon-reload
+    sudo systemctl restart ollama
+fi
+
 # 5. Pull the Gemma model
 echo "Pulling the specified Gemma model (gemma:2b)..."
 ollama pull gemma:2b
