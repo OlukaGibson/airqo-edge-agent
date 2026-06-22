@@ -1,0 +1,15 @@
+apis:
+  default:
+    base_url: "http://localhost:8000/mock-api"
+    auth_type: "none" # options: none, bearer, api_key
+    auth_token_env: ""
+    auth_header: ""
+    timeout: 10
+
+  # Example of an external API
+  # airqo:
+  #   base_url: "https://api.airqo.net/api/v1"
+  #   auth_type: "api_key"
+  #   auth_token_env: "AIRQO_API_KEY"
+  #   auth_header: "Authorization"
+  #   timeout: 30

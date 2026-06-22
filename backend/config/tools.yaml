@@ -1,0 +1,30 @@
+tools:
+  - name: get_device_status
+    description: Get health information for a device
+    endpoint: /devices/{device_id}/status
+    method: GET
+    parameters:
+      device_id:
+        type: string
+        description: The ID of the device
+
+  - name: get_latest_reading
+    description: Get latest air quality measurements for a device
+    endpoint: /devices/{device_id}/latest
+    method: GET
+    parameters:
+      device_id:
+        type: string
+        description: The ID of the device
+
+  - name: list_devices
+    description: Get a list of all devices
+    endpoint: /devices
+    method: GET
+    parameters: {}
+
+  - name: check_calibration_needs
+    description: Get a list of devices that need calibration
+    endpoint: /devices/calibration-needs
+    method: GET
+    parameters: {}

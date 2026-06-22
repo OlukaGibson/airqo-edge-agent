@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    container_name: airqo_agent_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./backend/config:/app/backend/config
+    environment:
+      - OLLAMA_URL=http://host.docker.internal:11434
+      - DEFAULT_MODEL=gemma:2b
+    # Use network_mode host on linux to access host services easily, or use host.docker.internal
+    # For cross-platform support:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
