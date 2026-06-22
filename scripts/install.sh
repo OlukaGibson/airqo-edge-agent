@@ -48,7 +48,11 @@ ollama pull gemma:2b
 
 # 6. Start the backend services
 echo "Starting FastAPI backend services via Docker Compose..."
-docker-compose up -d --build
+DOCKER_COMPOSE_CMD="docker-compose"
+if docker compose version &> /dev/null; then
+    DOCKER_COMPOSE_CMD="docker compose"
+fi
+$DOCKER_COMPOSE_CMD up -d --build
 
 # 7. Setup Python Virtual Environment for the UI
 echo "Setting up Python Virtual Environment..."

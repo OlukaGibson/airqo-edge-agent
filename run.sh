@@ -7,7 +7,11 @@ echo "Starting Air Quality Edge Assistant..."
 
 # 1. Start backend services in detached mode
 echo "Ensuring backend services are running..."
-docker-compose up -d
+DOCKER_COMPOSE_CMD="docker-compose"
+if docker compose version &> /dev/null; then
+    DOCKER_COMPOSE_CMD="docker compose"
+fi
+$DOCKER_COMPOSE_CMD up -d
 
 # 2. Start Ollama model natively if installed (it usually runs as a background service, but we can verify it's up)
 if command -v ollama &> /dev/null; then
